@@ -2,7 +2,7 @@
 set -e
 SOURCE_REPO=$1
 DESTINATION_REPO=$2
-SOURCE_DIR=$(basename "$SOURCE_REPO")
+SOURCE_DIR=$(basename $(echo "$SOURCE_REPO" | cut -d: -f2))
 
 echo "SOURCE=$SOURCE_REPO"
 echo "DESTINATION=$DESTINATION_REPO"
