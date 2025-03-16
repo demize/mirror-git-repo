@@ -21,7 +21,7 @@ jobs:
   mirror-git-repo:
     runs-on: ubuntu-latest
     steps:
-      - uses: demize/mirror-git-repo@v1 # please replace this with a commit hash
+      - uses: demize/repository-mirror-action@3e4644c32d66edfda20efe2cf768208ed3bfecd4 # v1
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         with:
