@@ -1,5 +1,5 @@
-name: 'mirror-git-repo'
-author: 'Thamognya Kodi'
+name: 'repository-mirror-action'
+author: 'demize'
 description: 'Action for mirroring a repository in another location using SSH.'
 branding:
   icon: 'copy'
@@ -19,4 +19,3 @@ runs:
   args:
     - ${{ inputs.source-repo }}
     - ${{ inputs.destination-repo }}
-    - ${{ inputs.dry-run }}
