@@ -1,11 +1,17 @@
+# mirror-git-repo
+
+This mirrors one git repo to another. Ideally you'll use this with a webhook triggered on your source repository, with `repository_dispatch`.
+
+Unlike the upstream version, this uses `git push --mirror` to handle the mirror, and should therefore preserve all metadata. This prevents it from being able to change branch names.
+
 ## Example workflow
 
 ```yml
 name: mirror to repo
 
 on: 
-  schedule:
-  - cron: '*/5 * * * *'
+    repository_dispatch:
+        types: [mirror]
 
 # Ensures that only one mirror task will run at a time.
 concurrency:
@@ -15,16 +21,12 @@ jobs:
   mirror-git-repo:
     runs-on: ubuntu-latest
     steps:
-      - uses: ThamognyaKodi/mirror-git-repo@0.0.1
+      - uses: demize/mirror-git-repo@v1 # please replace this with a commit hash
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          EMAIL: ${{ github.event.pusher.email }}
-          NAME: ${{ github.event.pusher.name }}
-          BRANCH_FOR_DESTINATION_REPO: "master"
-          BRANCH_ON_SOURCE_REPO: "main"
         with:
-          source-repo: "git@_some_provider_:_user_name_/_repo_name_.git"
-          destination-repo: "git@_some_provider_which_you_have_ssh_access_:_user_name_/_repo_name_.git"
+          source-repo: "git@source:repo.git"
+          destination-repo: "git@github.com:your/mirror.git"
 ```
 
 ## Docker
